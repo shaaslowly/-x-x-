@@ -244,65 +244,20 @@ h2 {color:#fff;font-size:28px;margin-bottom:25px;text-shadow:0.8px 0.8px 1px #00
   </div>
   
   <!-- Dana Section -->
-  <div class="dana-card" style="background:#000; border:1px solid #ccc; border-radius:12px; padding:15px; color:#fff; text-align:center; max-width:350px; margin:auto;">
-    <img src="dana.jpg" alt="Dana" style="width:120px; margin-bottom:10px;">
+  <div class="dana-card" style="background:#000; border:1px solid #ccc; border-radius:12px; padding:15px; color:#fff;">
+    <img src="dana.jpg" alt="Dana" style="width:120px; margin-bottom:5px;">
     <p style="font-size:14px; margin:5px 0;">Nomor Dana:</p>
     <h3 style="margin:5px 0; font-weight:bold; color:#007bff; font-size:20px;">0895402400413</h3>
-
-    <!-- Tombol Copy -->
-    <button id="copyButton" style="
-        margin-top:10px;
-        padding:10px 20px;
-        background:#007bff;
-        color:#fff;
-        border:none;
-        border-radius:8px;
-        font-size:14px;
-        cursor:pointer;
-        transition:0.3s;">
-        Copy Nomor
-    </button>
-
-    <!-- Text Notifikasi -->
-    <p id="copyNotif" style="font-size:13px; color:#0f0; margin-top:10px; display:none;">
-        ✅ Nomor berhasil disalin!
-    </p>
-
-    <p style="font-size:12px; color:#888; margin-top:10px;">(Gunakan transfer ke nomor di atas)</p>
-</div>
-
-<script>
-document.getElementById("copyButton").addEventListener("click", function() {
-    const nomorDana = "0895402400413";
-    navigator.clipboard.writeText(nomorDana).then(() => {
-        const notif = document.getElementById("copyNotif");
-        notif.style.display = "block";
-
-        // Animasi fade out setelah 2 detik
-        setTimeout(() => {
-            notif.style.display = "none";
-        }, 2000);
-
-        // Animasi tombol berubah warna sebentar
-        this.style.background = "#28a745"; // hijau sukses
-        this.textContent = "Copied!";
-        setTimeout(() => {
-            this.style.background = "#007bff";
-            this.textContent = "Copy Nomor";
-        }, 2000);
-    }).catch(err => {
-        alert("Gagal menyalin: " + err);
-    });
-});
-</script>
+    <button onclick="navigator.clipboard.writeText('0895402400413')" style="margin-top:10px; padding:8px 15px; background:#007bff; color:#fff; border:none; border-radius:6px; font-size:14px; cursor:pointer;">Copy Nomor</button>
+    <p style="font-size:12px; color:#666; margin-top:10px;">(Gunakan transfer ke nomor di atas)</p>
+  </div>
   
   <!-- Testimonial Section -->
-  <a href="https://whatsapp.com/channel/0029Vb616hqCnA7jqXCtvU2V"
-   target="_blank"
-   onclick="navigator.clipboard.writeText('0895402400413')"
-   style="display:inline-block; padding:10px 15px; background:#000; color:#fff; text-decoration:none; border-radius:6px; font-size:15px;">
-   Klik Disini
-</a>
+  <div class="testimonial-section" style="margin-top:30px;">
+    <h3 style="margin-bottom:10px; font-size:20px;">𝑻𝒆𝒔𝒕𝒊𝒎𝒐𝒏𝒊</h3>
+    <a href="https://whatsapp.com/channel/0029Vb616hqCnA7jqXCtvU2V" target="_blank" style="display:inline-block; padding:10px 15px; background:#000; color:#fff; text-decoration:none; border-radius:6px; font-size:15px;">Klik Disini</a>
+  </div>
+</div>
 
 <!-- Product Section -->
 <div class="section" id="productSection">
