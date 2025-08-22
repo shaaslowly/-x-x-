@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>𝐈𝐌𝐆𝐍 || ʙᴜxᴢᴢxᴢ👾 Payment</title>
+<title>𝐈𝐌𝐆𝐍 || ʙᴜxᴢᴢxᴢ👾</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
@@ -212,7 +212,6 @@ h2 {color:#fff;font-size:28px;margin-bottom:25px;text-shadow:0.8px 0.8px 1px #00
 </head>
 <body>
 
-<!-- Opening Screen -->
 <div id="opening">
   <canvas id="openingCanvas"></canvas>
   <div class="logo-circle"><img src="bg.jpg" alt="Logo"></div>
@@ -221,77 +220,90 @@ h2 {color:#fff;font-size:28px;margin-bottom:25px;text-shadow:0.8px 0.8px 1px #00
   <button id="startBtn">START</button>
 </div>
 
-<!-- Particle payment -->
 <canvas id="particleCanvas"></canvas>
 
-<!-- Navbar -->
 <div class="navbar" id="navbar">
   <button onclick="showSection('productSection')">Product</button>
   <button onclick="showSection('contactSection')">Contact</button>
   <button onclick="exitApp()">Exit</button>
 </div>
 
-<!-- Payment Container -->
-<div id="paymentContainer" style="text-align:center; font-family:'Poppins',sans-serif; max-width:600px; margin:auto; padding:20px;">
-  
+<div id="paymentContainer" style="text-align:center; font-family:'Poppins',sans-serif; max-width:600px; margin:auto; padding:20px; position:relative; z-index:10;">
+
   <h2 style="margin-bottom:20px; font-size:24px; font-weight:bold; color:#fff;">𝑨𝑳𝑳 𝑷𝑨𝒀𝑴𝑬𝑵𝑻</h2>
-  
-  <!-- QRIS Section -->
-  <div class="qris-card" style="background:#000; color:#000; border-radius:12px; padding:15px; margin-bottom:20px;">
+
+  <div class="qris-card" style="background:#000; border-radius:12px; padding:15px; margin-bottom:20px; position:relative;">
     <div class="scan-line" style="height:2px; background:#fff; margin-bottom:10px;"></div>
     <img src="qris.jpg" alt="QRIS" style="width:100%; max-width:250px; border-radius:10px;">
-    <p style="margin-top:10px; font-size:14px;">ꜱᴄᴀɴ ǫʀ ɪɴɪ ᴜɴᴛᴜᴋ ᴍᴇᴍʙᴀʏᴀʀ</p>
+    <p style="margin-top:10px; font-size:14px; color:#fff;">ꜱᴄᴀɴ ǫʀ ɪɴɪ ᴜɴᴛᴜᴋ ᴍᴇᴍʙᴀʏᴀʀ</p>
   </div>
-  
-  <!-- Dana Section -->
-  <div class="dana-card" style="background:#000; border:1px solid #ccc; border-radius:12px; padding:15px; color:#fff;">
+
+  <div class="dana-card" style="background:#000; border:1px solid #007bff; border-radius:12px; padding:15px; color:#fff; max-width:320px; text-align:center; margin:auto; position:relative; z-index:10;">
     <img src="dana.jpg" alt="Dana" style="width:120px; margin-bottom:5px;">
     <p style="font-size:14px; margin:5px 0;">Nomor Dana:</p>
-    <h3 style="margin:5px 0; font-weight:bold; color:#007bff; font-size:20px;">0895402400413</h3>
-    <button onclick="navigator.clipboard.writeText('0895402400413')" style="margin-top:10px; padding:8px 15px; background:#007bff; color:#fff; border:none; border-radius:6px; font-size:14px; cursor:pointer;">Copy Nomor</button>
-    <p style="font-size:12px; color:#666; margin-top:10px;">(Gunakan transfer ke nomor di atas)</p>
+    <h3 id="dana-number" style="margin:5px 0; font-weight:bold; color:#00d4ff; font-size:20px;">0895402400413</h3>
+
+    <button id="copyDanaBtn" style="margin-top:10px; padding:8px 15px; background:#00d4ff; color:#000; border:none; border-radius:6px; font-size:14px; cursor:pointer; font-weight:bold;">
+      Copy Nomor
+    </button>
+
+    <p style="font-size:12px; color:#999; margin-top:10px;">(Gunakan transfer ke nomor di atas)</p>
+
+    <div id="copyNotif" style="position:absolute; top:-35px; left:50%; transform:translateX(-50%); background:#00d4ff; color:#000; padding:6px 12px; border-radius:12px; font-size:13px; opacity:0; transition:0.3s;">Nomor Disalin</div>
   </div>
-  
-  <!-- Testimonial Section -->
-  <div class="testimonial-section" style="margin-top:30px;">
-    <h3 style="margin-bottom:10px; font-size:20px;">𝑻𝒆𝒔𝒕𝒊𝒎𝒐𝒏𝒊</h3>
-    <a href="https://whatsapp.com/channel/0029Vb616hqCnA7jqXCtvU2V" target="_blank" style="display:inline-block; padding:10px 15px; background:#000; color:#fff; text-decoration:none; border-radius:6px; font-size:15px;">Klik Disini</a>
+
+  <div class="testimonial-section" style="margin-top:30px; text-align:center; position:relative; z-index:10;">
+    <h3 style="margin-bottom:10px; font-size:20px; color:#00d4ff;">𝑻𝒆𝒔𝒕𝒊𝒎𝒐𝒏𝒊</h3>
+    <a href="https://whatsapp.com/channel/0029Vb616hqCnA7jqXCtvU2V" target="_blank" style="display:inline-flex; align-items:center; gap:8px; padding:12px 20px; background:#000; color:#00d4ff; text-decoration:none; border-radius:12px; font-weight:bold; font-size:15px; transition:0.3s;">
+      <span>Klik Disini</span>
+    </a>
   </div>
+
 </div>
 
-<!-- Product Section -->
+<script>
+  const copyBtn = document.getElementById('copyDanaBtn');
+  const copyNotif = document.getElementById('copyNotif');
+  copyBtn.addEventListener('click',()=>{
+    const text = document.getElementById('dana-number').innerText;
+    navigator.clipboard.writeText(text).then(()=>{
+      copyNotif.style.opacity='1';
+      setTimeout(()=>{ copyNotif.style.opacity='0'; }, 1500);
+    }).catch(err=>{
+      alert('❌ Gagal menyalin. Pastikan buka di browser HTTPS atau localhost.');
+    });
+  });
+
+  document.getElementById('particleCanvas').style.pointerEvents='none';
+  document.getElementById('openingCanvas').style.pointerEvents='none';
+</script>
+
 <div class="section" id="productSection">
   <h2 class="title">🛒 List Produk</h2>
   
   <div class="product-list">
-    <!-- PT SVIP -->
     <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
       <span>💎 PT SVIP</span>
     </div>
 
-    <!-- apk bug X-GLOW -->
     <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
       <span>🔥 apk bug X-GLOW</span>
     </div>
 
-    <!-- murband & murbug -->
     <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
       <span>⚡ murband & murbug</span>
     </div>
 
-    <!-- murid sadap -->
     <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
       <span>🕵 murid sadap</span>
     </div>
 
-    <!-- apk RAT -->
     <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
       <span>🛠 apk RAT</span>
     </div>
   </div>
 </div>
 
-<!-- CSS Styling -->
 <style>
   body {
     background: #121212;
@@ -342,7 +354,6 @@ h2 {color:#fff;font-size:28px;margin-bottom:25px;text-shadow:0.8px 0.8px 1px #00
   }
 </style>
 
-<!-- Contact Section -->
 <div class="section" id="contactSection">
   <div class="contact-card">
     <h2>Contact Admin</h2>
