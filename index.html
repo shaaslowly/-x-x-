@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaasleep Payment</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.contact-card {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  color: white;
+  width: 280px;
+  margin: auto;
+  box-shadow: 0 0 5px rgba(255,255,255,0.9);
+  backdrop-filter: blur(6px);
+  animation: fadeInUp 0.6s ease;
+}
+
+.btn-link {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #000, #000);
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.btn-link:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(0,212,255,0.8);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+#opening {
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  z-index:9999;
+  color:#fff;
+  overflow:hidden;
+}
+#opening::before {
+  content:'';
+  position:absolute;
+  top:0;left:0;
+  width:115%;height:115%;
+  background:url('bg.jpg') no-repeat center center;
+  background-size:cover;
+  z-index:-2;
+  animation:moveBg 25s linear infinite alternate;
+}
+#openingCanvas {
+  position:absolute;
+  top:0;left:0;
+  width:100%;height:100%;
+  z-index:-1;
+}
+.logo-text {
+  font-size:38px;
+  font-weight:700;
+  letter-spacing:4px;
+  background:linear-gradient(90deg,#ff0055,#00d4ff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation: glow 2s ease-in-out infinite;
+}
+@keyframes glow {
+  0%,100%{filter:drop-shadow(0 0 5px #00d4ff);}
+  50%{filter:drop-shadow(0 0 15px #ff0055);}
+}
+.logo-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.4);
+  box-shadow: 0 0 10px #ff0055, 0 0 20px #00d4ff;
+  animation: pulseCircle 2.5s infinite alternate;
+  margin-bottom: 20px;
+}
+.logo-circle img {width: 100%;border-radius: 25%;}
+@keyframes pulseCircle {
+  0%   { box-shadow: 0 0 0px #ff0055, 0 0 5px #00d4ff; }
+  100% { box-shadow: 0 0 5px #ff0055, 0 0 10px #00d4ff; }
+}
+.loader {display: flex;justify-content: center;gap: 6px;margin-top: 20px;}
+.loader span {
+  width: 6px;height: 20px;
+  background: linear-gradient(180deg,#ff0055,#00d4ff);
+  border-radius: 3px;animation: bounce 1s infinite;
+}
+.loader span:nth-child(2){ animation-delay:0.2s; }
+.loader span:nth-child(3){ animation-delay:0.4s; }
+.loader span:nth-child(4){ animation-delay:0.6s; }
+@keyframes bounce {
+  0%,100%{ transform: scaleY(0.4); opacity:0.5; }
+  50%{ transform: scaleY(1.2); opacity:1; }
+}
+#startBtn {
+  display:none;margin-top:30px;padding:12px 25px;
+  background:#fff;color:#000;border:none;border-radius:25px;
+  cursor:pointer;font-weight:700;transition:all 0.3s ease;
+}
+#startBtn:hover {transform:scale(1.08);box-shadow:0 0 12px #fff;}
+
+body::after {
+  content:'';position:absolute;top:0;left:0;
+  width:115%;height:115%;
+  background:url('bg.jpg') no-repeat center center;
+  background-size:cover;z-index:-5;
+  animation:moveBg 25s linear infinite alternate;
+}
+@keyframes moveBg {
+  0%{transform:scale(1) translate(0,0);}
+  50%{transform:scale(1.05) translate(-15px,-15px);}
+  100%{transform:scale(1) translate(0,0);}
+}
+canvas {position:absolute;top:0;left:0;width:100%;height:100%;z-index:0;}
+.container {
+  position:relative;background:rgba(0,0,0,0.85);
+  border-radius:40px;width:90%;max-width:330px;
+  padding:30px;text-align:center;z-index:1;
+  box-shadow:0 0 20px rgba(255,255,255,0.2),0 0 15px rgba(255,255,255,0.15);
+  animation:floatContainer 4s ease-in-out infinite;
+  margin: auto;display:none;
+}
+@keyframes floatContainer {0%,100%{transform:translateY(0px);}20%{transform:translateY(-8px);}}
+h2 {color:#fff;font-size:28px;margin-bottom:25px;text-shadow:0.8px 0.8px 1px #000;}
+.qris-card {
+  position:relative;border-radius:20px;overflow:hidden;
+  margin-bottom:30px;cursor:pointer;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;
+  padding:30px;box-shadow:0 0 12px #fff,0 0 5px #fff;
+}
+.qris-card img {width:180px;display:block;animation:qrPulse 2s ease-in-out infinite alternate;}
+@keyframes qrPulse {0%{transform:scale(1);}50%{transform:scale(1.02);}100%{transform:scale(1);}}
+.scan-line {
+  position:absolute;top:0;left:0;width:100%;height:5px;
+  background:linear-gradient(to right,rgba(255,255,255,0),rgba(255,255,255,0.6),rgba(255,255,255,0));
+  animation:scan 2s linear infinite;
+}
+@keyframes scan {0%{top:0%;}50%{top:100%;}}
+.qris-card p {
+  font-family:'Courier New',monospace;font-size:14px;
+  color:#fff;margin-top:5px;text-align:center;
+}
+.testimonial-section {margin-top:15px;background:rgba(0,0,0,0.6);padding:12px 20px;border-radius:15px;}
+.testimonial-section h3 {color:#fff;margin-bottom:10px;}
+.testimonial-section a {
+  display:inline-block;margin-top:10px;text-decoration:none;
+  background:#fff;color:#000;padding:12px 25px;border-radius:15px;
+  font-weight:700;transition:all 0.3s ease;
+}
+.testimonial-section a:hover {transform:scale(1.05);box-shadow:0 0 12px #fff;}
+
+.navbar {
+  position:fixed;top:10px;left:50%;transform:translateX(-50%);
+  display:flex;gap:10px;z-index:1000;display:none;
+}
+.navbar button {
+  padding:10px 15px;border:none;border-radius:20px;
+  font-weight:600;cursor:pointer;
+  background:linear-gradient(90deg,#fff,#fff);
+  color:#000;box-shadow:0 0 4px #fff;transition:all 0.3s ease;
+}
+.navbar button:hover { transform:scale(1.05); }
+.section {
+  display:none;position:relative;
+  background:rgba(0,0,0,0.85);border-radius:30px;
+  width:90%;max-width:330px;padding:25px;text-align:center;
+  z-index:2;margin:auto;animation:fadeIn 0.5s ease;
+}
+.section h2 { color:#fff;margin-bottom:15px; }
+.section ul { text-align:left;color:#fff;margin:10px 0; }
+.section a { color:#00d4ff;text-decoration:none;font-weight:600; }
+.section a:hover { text-decoration:underline; }
+.backBtn {
+  margin-top:20px;padding:8px 15px;border:none;border-radius:15px;
+  background:#fff;color:#000;font-weight:700;cursor:pointer;
+}
+@keyframes fadeIn {from{opacity:0;transform:translateY(15px);}to{opacity:1;transform:translateY(0);}}
+</style>
+</head>
+<body>
+
+<!-- Opening Screen -->
+<div id="opening">
+  <canvas id="openingCanvas"></canvas>
+  <div class="logo-circle"><img src="bg.jpg" alt="Logo"></div>
+  <div class="logo-text">𝐈𝐌𝐆𝐍 || ʙᴜxᴢᴢxᴢ👾</div>
+  <div class="loader"><span></span><span></span><span></span><span></span></div>
+  <button id="startBtn">START</button>
+</div>
+
+<!-- Particle payment -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- Navbar -->
+<div class="navbar" id="navbar">
+  <button onclick="showSection('productSection')">Product</button>
+  <button onclick="showSection('contactSection')">Contact</button>
+  <button onclick="exitApp()">Exit</button>
+</div>
+
+<!-- Payment Container -->
+<div id="paymentContainer" style="text-align:center; font-family:'Poppins',sans-serif; max-width:600px; margin:auto; padding:20px;">
+  
+  <h2 style="margin-bottom:20px; font-size:24px; font-weight:bold; color:#fff;">𝑨𝑳𝑳 𝑷𝑨𝒀𝑴𝑬𝑵𝑻</h2>
+  
+  <!-- QRIS Section -->
+  <div class="qris-card" style="background:#000; color:#000; border-radius:12px; padding:15px; margin-bottom:20px;">
+    <div class="scan-line" style="height:2px; background:#fff; margin-bottom:10px;"></div>
+    <img src="qris.jpg" alt="QRIS" style="width:100%; max-width:250px; border-radius:10px;">
+    <p style="margin-top:10px; font-size:14px;">ꜱᴄᴀɴ ǫʀ ɪɴɪ ᴜɴᴛᴜᴋ ᴍᴇᴍʙᴀʏᴀʀ</p>
+  </div>
+  
+  <!-- Dana Section -->
+  <div class="dana-card" style="background:#000; border:1px solid #ccc; border-radius:12px; padding:15px; color:#fff;">
+    <img src="dana.jpg" alt="Dana" style="width:120px; margin-bottom:5px;">
+    <p style="font-size:14px; margin:5px 0;">Nomor Dana:</p>
+    <h3 style="margin:5px 0; font-weight:bold; color:#007bff; font-size:20px;">0895402400413</h3>
+    <button onclick="navigator.clipboard.writeText('0895402400413')" style="margin-top:10px; padding:8px 15px; background:#007bff; color:#fff; border:none; border-radius:6px; font-size:14px; cursor:pointer;">Copy Nomor</button>
+    <p style="font-size:12px; color:#666; margin-top:10px;">(Gunakan transfer ke nomor di atas)</p>
+  </div>
+  
+  <!-- Testimonial Section -->
+  <div class="testimonial-section" style="margin-top:30px;">
+    <h3 style="margin-bottom:10px; font-size:20px;">𝑻𝒆𝒔𝒕𝒊𝒎𝒐𝒏𝒊</h3>
+    <a href="https://whatsapp.com/channel/0029Vb616hqCnA7jqXCtvU2V" target="_blank" style="display:inline-block; padding:10px 15px; background:#000; color:#fff; text-decoration:none; border-radius:6px; font-size:15px;">Klik Disini</a>
+  </div>
+</div>
+<!-- Product Section -->
+<div class="section" id="productSection">
+  <h2 class="title">🛒 List Produk</h2>
+  
+  <div class="product-list">
+    <!-- PT SVIP -->
+    <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
+      <span>💎 PT SVIP</span>
+    </div>
+
+    <!-- apk bug X-GLOW -->
+    <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
+      <span>🔥 apk bug X-GLOW</span>
+    </div>
+
+    <!-- murband & murbug -->
+    <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
+      <span>⚡ murband & murbug</span>
+    </div>
+
+    <!-- murid sadap -->
+    <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
+      <span>🕵 murid sadap</span>
+    </div>
+
+    <!-- apk RAT -->
+    <div class="product-card" onclick="window.open('https://t.me/MarzzGlitch','_blank')">
+      <span>🛠 apk RAT</span>
+    </div>
+  </div>
+</div>
+
+<!-- CSS Styling -->
+<style>
+  body {
+    background: #121212;
+    color: #e0e0e0;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #fff;
+  }
+
+  .product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 18px;
+    max-width: 900px;
+    margin: auto;
+  }
+
+  .product-card {
+    background: #1e1e1e;
+    padding: 16px;
+    border-radius: 14px;
+    border: 1px solid #2c2c2c;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    cursor: pointer;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    transition: 0.3s;
+    position: relative;
+    color: #fff;
+  }
+
+  .product-card:hover {
+    background: linear-gradient(135deg, #1e1e1e 0%, #2c2c2c 100%);
+    transform: scale(1.05);
+    box-shadow: 0 6px 14px rgba(0,0,0,0.7);
+  }
+
+  .product-card:active {
+    transform: scale(0.97);
+  }
+</style>
+
+<!-- Contact Section -->
+<div class="section" id="contactSection">
+  <div class="contact-card">
+    <h2>Contact Admin</h2>
+    <a href="https://t.me/MarzzGlitch" target="_blank" class="btn-link">Telegram</a>
+    <br><br>
+    <button class="backBtn" onclick="showSection('paymentContainer')">⬅Back</button>
+  </div>
+</div>
+
+<script>
+setTimeout(()=>{
+  document.querySelector('.loader').style.display='none';
+  document.getElementById('startBtn').style.display='inline-block';
+},2500);
+
+document.getElementById('startBtn').addEventListener('click',()=>{
+  document.getElementById('opening').style.display='none';
+  document.getElementById('paymentContainer').style.display='block';
+  document.getElementById('navbar').style.display='flex';
+});
+
+function startParticles(canvasId,count){
+  const canvas=document.getElementById(canvasId);
+  const ctx=canvas.getContext('2d');
+  canvas.width=window.innerWidth;
+  canvas.height=window.innerHeight;
+  let particles=[];
+  for(let i=0;i<count;i++){
+    particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2+1,dx:(Math.random()-0.5)*0.7,dy:(Math.random()-0.5)*0.7,color:`rgba(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},255,0.6)`});
+  }
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.x+=p.dx;p.y+=p.dy;
+      if(p.x<0) p.x=canvas.width;if(p.x>canvas.width) p.x=0;
+      if(p.y<0) p.y=canvas.height;if(p.y>canvas.height) p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.color;ctx.fill();
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+  window.addEventListener('resize',()=>{canvas.width=window.innerWidth;canvas.height=window.innerHeight;});
+}
+startParticles('openingCanvas',100);
+startParticles('particleCanvas',120);
+
+function showSection(id){
+  document.querySelectorAll('.container,.section').forEach(sec=>sec.style.display='none');
+  document.getElementById(id).style.display='block';
+}
+function exitApp(){
+  alert("THX UDH MAMPIR");
+  window.close();
+}
+</script>
+</body>
+</html>
